@@ -7,7 +7,7 @@ Course: Principles and Design Patterns of React Programming - batch01 - Tháng 4
 Clone this repository into your local machine by navigating to your desired containing directory and running:\
 `git clone https://github.com/anhdau185/react-course-wk1-stopwatch.git`
 
-then `cd react-course-wk1-stopwatch` and `yarn install` to install the packages.
+then `cd react-course-wk1-stopwatch`. Make sure you're using node version >= 14 and `yarn install` to install the packages.
 
 ## How to run app locally
 
