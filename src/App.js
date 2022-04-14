@@ -8,9 +8,19 @@ const STOPWATCH_STATES = {
   STOPPED: 'stopped'
 };
 
-const convertTimestampToString = timestamp => {
-  // TODO convert this
-  return timestamp;
+const padStartNumber = (number, digits = 2) => number.toString().padStart(digits, '0');
+
+const convertTimestampToString = milliseconds => {
+  let seconds = ~~(milliseconds / 1000);
+  const rMilliseconds = milliseconds % 1000;
+
+  const hh = ~~(seconds / 3600);
+  seconds -= hh;
+  const mm = ~~(seconds / 60);
+  seconds -= mm;
+  return `${[hh, mm, seconds]
+    .map(number => padStartNumber(number))
+    .join(':')}:${padStartNumber(rMilliseconds, 3)}`; // only milliseconds require 3 digits, so here we are...
 };
 
 const useNow = () => {
@@ -39,7 +49,7 @@ const App = () => {
   const onStartTimestamp = useRef(now);
   const lapTimestamp = useRef([]);
   const onStopTimestamp = useRef(0);
-  const timeSinceOnClick = convertTimestampToString(now - onStartTimestamp.current);
+  const timeSinceOnClick = now - onStartTimestamp.current + onStopTimestamp.current;
 
   return (
     <div className="stopwatch">
@@ -60,7 +70,7 @@ const App = () => {
       {currentState === STOPWATCH_STATES.RUNNING && (
         <>
           <div className="current-state">{currentState}</div>
-          <div className="time">{timeSinceOnClick}</div>
+          <div className="time">{convertTimestampToString(timeSinceOnClick)}</div>
           <button
             onClick={() => {
               onStopTimestamp.current = timeSinceOnClick;
@@ -81,7 +91,15 @@ const App = () => {
       {currentState === STOPWATCH_STATES.STOPPED && (
         <>
           <div className="current-state">{currentState}</div>
-          <div className="time">{onStopTimestamp.current}</div>
+          <div className="time">{convertTimestampToString(onStopTimestamp.current)}</div>
+          <button
+            onClick={() => {
+              onStartTimestamp.current = now;
+              setCurrentState(STOPWATCH_STATES.RUNNING);
+            }}
+          >
+            Resume
+          </button>
           <button
             onClick={() => {
               lapTimestamp.current = [];
@@ -90,14 +108,6 @@ const App = () => {
             }}
           >
             Reset
-          </button>
-          <button
-            onClick={() => {
-              onStartTimestamp.current = now;
-              setCurrentState(STOPWATCH_STATES.RUNNING);
-            }}
-          >
-            Resume
           </button>
         </>
       )}
