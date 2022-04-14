@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import './App.css';
 
@@ -31,10 +31,13 @@ const useNow = () => {
 const App = () => {
   const [currentState, setCurrentState] = useState(STOPWATCH_STATES.INITIAL);
   const now = useNow();
+  const onClickTimestamp = useRef(now);
+  const timeSinceOnClick = now - onClickTimestamp.current;
 
   if (currentState === STOPWATCH_STATES.RUNNING) {
     return (
       <div className="stopwatch">
+        <div>{timeSinceOnClick}</div>
       </div>
     );
   }
@@ -52,6 +55,7 @@ const App = () => {
       <div className="time">{'00:00:00.000'}</div>
       <button
         onClick={() => {
+          onClickTimestamp.current = now;
           setCurrentState(STOPWATCH_STATES.RUNNING);
         }}
       >
