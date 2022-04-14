@@ -4,7 +4,7 @@ Course: Principles and Design Patterns of React Programming - batch01 - Tháng 4
 
 ## Getting started
 
-Clone this repository into your local machine by navigating to your desired containing directory and running:
+Clone this repository into your local machine by navigating to your desired containing directory and running:\
 `git clone https://github.com/anhdau185/react-course-wk1-stopwatch.git`
 
 then `cd react-course-wk1-stopwatch` and `yarn install` to install the packages.
@@ -15,12 +15,12 @@ then `cd react-course-wk1-stopwatch` and `yarn install` to install the packages.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## How to build for production deployment
+## How to build app for production deployment
 
-`yarn build` to build the app for production to the `build` folder.
+`yarn build` to build the production version of the app to the `build` folder.
 
 App is ready to be deployed!
 
-## Production app
+## Link to production app
 
 TBD.
