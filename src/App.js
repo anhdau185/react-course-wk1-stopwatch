@@ -36,45 +36,78 @@ const useNow = () => {
 const App = () => {
   const [currentState, setCurrentState] = useState(STOPWATCH_STATES.INITIAL);
   const now = useNow();
-  const onClickTimestamp = useRef(now);
+  const onStartTimestamp = useRef(now);
   const lapTimestamp = useRef([]);
-  const timeSinceOnClick = convertTimestampToString(now - onClickTimestamp.current);
-
-  if (currentState === STOPWATCH_STATES.RUNNING) {
-    return (
-      <div className="stopwatch">
-        <div>{timeSinceOnClick}</div>
-        <button
-          onClick={() => {
-            lapTimestamp.current.push(convertTimestampToString(timeSinceOnClick));
-            setCurrentState(STOPWATCH_STATES.STOPPED);
-          }}
-        >
-          Stop
-        </button>
-      </div>
-    );
-  }
-
-  if (currentState === STOPWATCH_STATES.STOPPED) {
-    return (
-      <div className="stopwatch">
-      </div>
-    );
-  }
+  const onStopTimestamp = useRef(0);
+  const timeSinceOnClick = convertTimestampToString(now - onStartTimestamp.current);
 
   return (
     <div className="stopwatch">
-      <div className="current-state">{currentState}</div>
-      <div className="time">{'00:00:00.000'}</div>
-      <button
-        onClick={() => {
-          onClickTimestamp.current = now;
-          setCurrentState(STOPWATCH_STATES.RUNNING);
-        }}
-      >
-        Start
-      </button>
+      {currentState === STOPWATCH_STATES.INITIAL && (
+        <>
+          <div className="current-state">{currentState}</div>
+          <div className="time">{'00:00:00.000'}</div>
+          <button
+            onClick={() => {
+              onStartTimestamp.current = now;
+              setCurrentState(STOPWATCH_STATES.RUNNING);
+            }}
+          >
+            Start
+          </button>
+        </>
+      )}
+      {currentState === STOPWATCH_STATES.RUNNING && (
+        <>
+          <div className="current-state">{currentState}</div>
+          <div className="time">{timeSinceOnClick}</div>
+          <button
+            onClick={() => {
+              onStopTimestamp.current = timeSinceOnClick;
+              setCurrentState(STOPWATCH_STATES.STOPPED);
+            }}
+          >
+            Stop
+          </button>
+          <button
+            onClick={() => {
+              lapTimestamp.current.push(convertTimestampToString(timeSinceOnClick));
+            }}
+          >
+            Lap
+          </button>
+        </>
+      )}
+      {currentState === STOPWATCH_STATES.STOPPED && (
+        <>
+          <div className="current-state">{currentState}</div>
+          <div className="time">{onStopTimestamp.current}</div>
+          <button
+            onClick={() => {
+              lapTimestamp.current = [];
+              onStopTimestamp.current = 0;
+              setCurrentState(STOPWATCH_STATES.INITIAL);
+            }}
+          >
+            Reset
+          </button>
+          <button
+            onClick={() => {
+              onStartTimestamp.current = now;
+              setCurrentState(STOPWATCH_STATES.RUNNING);
+            }}
+          >
+            Resume
+          </button>
+        </>
+      )}
+      <div className="laps">
+        <ul>
+          {lapTimestamp.current.map(
+            timestamp => <li>{timestamp}</li>
+          )}
+        </ul>
+      </div>
     </div>
   );
 }
