@@ -8,6 +8,11 @@ const STOPWATCH_STATES = {
   STOPPED: 'stopped'
 };
 
+const convertTimestampToString = timestamp => {
+  // TODO convert this
+  return timestamp;
+};
+
 const useNow = () => {
   const [now, setNow] = useState(Date.now());
 
@@ -32,12 +37,21 @@ const App = () => {
   const [currentState, setCurrentState] = useState(STOPWATCH_STATES.INITIAL);
   const now = useNow();
   const onClickTimestamp = useRef(now);
-  const timeSinceOnClick = now - onClickTimestamp.current;
+  const lapTimestamp = useRef([]);
+  const timeSinceOnClick = convertTimestampToString(now - onClickTimestamp.current);
 
   if (currentState === STOPWATCH_STATES.RUNNING) {
     return (
       <div className="stopwatch">
         <div>{timeSinceOnClick}</div>
+        <button
+          onClick={() => {
+            lapTimestamp.current.push(convertTimestampToString(timeSinceOnClick));
+            setCurrentState(STOPWATCH_STATES.STOPPED);
+          }}
+        >
+          Stop
+        </button>
       </div>
     );
   }
