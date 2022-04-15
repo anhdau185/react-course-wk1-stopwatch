@@ -1,4 +1,13 @@
-.stopwatch {
-  display: block;
+.lap-list {
   text-align: center;
+}
+
+.lap-list h4 {
+  margin: 0 0 0.25rem 0;
+}
+
+.lap-list .laps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

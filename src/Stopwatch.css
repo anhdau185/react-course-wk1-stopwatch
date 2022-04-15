@@ -1,0 +1,9 @@
+.stopwatch {
+  text-align: center;
+  padding: 1rem;
+}
+
+.stopwatch .elapsed-time {
+  display: block;
+  padding: 0.5rem;
+}
