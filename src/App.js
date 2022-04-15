@@ -8,6 +8,8 @@ const STOPWATCH_STATES = {
   STOPPED: 'stopped'
 };
 
+const MAX_RECENT_LAPS = 10;
+
 const padStartNumber = (number, digits = 2) => number.toString().padStart(digits, '0');
 
 const convertTimestampToString = milliseconds => {
@@ -56,7 +58,7 @@ const App = () => {
       {stopwatchState.current === STOPWATCH_STATES.INITIAL && (
         <>
           <div className="current-state">{stopwatchState.current}</div>
-          <div className="time">{'00:00:00.000'}</div>
+          <div className="elapsed-time">{convertTimestampToString(0)}</div>
           <button
             onClick={() => {
               timestampOnStart.current = now;
@@ -70,7 +72,7 @@ const App = () => {
       {stopwatchState.current === STOPWATCH_STATES.RUNNING && (
         <>
           <div className="current-state">{stopwatchState.current}</div>
-          <div className="time">{convertTimestampToString(elapsedMs)}</div>
+          <div className="elapsed-time">{convertTimestampToString(elapsedMs)}</div>
           <button
             onClick={() => {
               lastElapsedMs.current = elapsedMs;
@@ -81,7 +83,12 @@ const App = () => {
           </button>
           <button
             onClick={() => {
-              laps.current.push(convertTimestampToString(elapsedMs));
+              if (laps.current.length >= MAX_RECENT_LAPS) {
+                laps.current.pop();
+                laps.current.unshift(convertTimestampToString(elapsedMs));
+              } else {
+                laps.current.unshift(convertTimestampToString(elapsedMs));
+              }
             }}
           >
             Lap
@@ -91,7 +98,7 @@ const App = () => {
       {stopwatchState.current === STOPWATCH_STATES.STOPPED && (
         <>
           <div className="current-state">{stopwatchState.current}</div>
-          <div className="time">{convertTimestampToString(lastElapsedMs.current)}</div>
+          <div className="elapsed-time">{convertTimestampToString(lastElapsedMs.current)}</div>
           <button
             onClick={() => {
               timestampOnStart.current = now;
@@ -111,11 +118,10 @@ const App = () => {
           </button>
         </>
       )}
-      <div className="laps">
-        <ul>
-          {laps.current.map(
-            timestamp => <li>{timestamp}</li>
-          )}
+      <div className="lap-list">
+        <h4>Laps</h4>
+        <ul className="laps">
+          {laps.current.map(lap => <li key={lap}>{lap}</li>)}
         </ul>
       </div>
     </div>
