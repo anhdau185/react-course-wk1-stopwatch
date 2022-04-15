@@ -44,67 +44,67 @@ const useNow = () => {
 };
 
 const App = () => {
-  const [currentState, setCurrentState] = useState(STOPWATCH_STATES.INITIAL);
   const now = useNow();
-  const onStartTimestamp = useRef(now);
-  const lapTimestamp = useRef([]);
-  const onStopTimestamp = useRef(0);
-  const timeSinceOnClick = now - onStartTimestamp.current + onStopTimestamp.current;
+  const stopwatchState = useRef(STOPWATCH_STATES.INITIAL);
+  const timestampOnStart = useRef(now);
+  const lastElapsedMs = useRef(0);
+  const laps = useRef([]);
+  const elapsedMs = (now - timestampOnStart.current) + lastElapsedMs.current;
 
   return (
     <div className="stopwatch">
-      {currentState === STOPWATCH_STATES.INITIAL && (
+      {stopwatchState.current === STOPWATCH_STATES.INITIAL && (
         <>
-          <div className="current-state">{currentState}</div>
+          <div className="current-state">{stopwatchState.current}</div>
           <div className="time">{'00:00:00.000'}</div>
           <button
             onClick={() => {
-              onStartTimestamp.current = now;
-              setCurrentState(STOPWATCH_STATES.RUNNING);
+              timestampOnStart.current = now;
+              stopwatchState.current = STOPWATCH_STATES.RUNNING;
             }}
           >
             Start
           </button>
         </>
       )}
-      {currentState === STOPWATCH_STATES.RUNNING && (
+      {stopwatchState.current === STOPWATCH_STATES.RUNNING && (
         <>
-          <div className="current-state">{currentState}</div>
-          <div className="time">{convertTimestampToString(timeSinceOnClick)}</div>
+          <div className="current-state">{stopwatchState.current}</div>
+          <div className="time">{convertTimestampToString(elapsedMs)}</div>
           <button
             onClick={() => {
-              onStopTimestamp.current = timeSinceOnClick;
-              setCurrentState(STOPWATCH_STATES.STOPPED);
+              lastElapsedMs.current = elapsedMs;
+              stopwatchState.current = STOPWATCH_STATES.STOPPED;
             }}
           >
             Stop
           </button>
           <button
             onClick={() => {
-              lapTimestamp.current.push(convertTimestampToString(timeSinceOnClick));
+              laps.current.push(convertTimestampToString(elapsedMs));
             }}
           >
             Lap
           </button>
         </>
       )}
-      {currentState === STOPWATCH_STATES.STOPPED && (
+      {stopwatchState.current === STOPWATCH_STATES.STOPPED && (
         <>
-          <div className="current-state">{currentState}</div>
-          <div className="time">{convertTimestampToString(onStopTimestamp.current)}</div>
+          <div className="current-state">{stopwatchState.current}</div>
+          <div className="time">{convertTimestampToString(lastElapsedMs.current)}</div>
           <button
             onClick={() => {
-              onStartTimestamp.current = now;
-              setCurrentState(STOPWATCH_STATES.RUNNING);
+              timestampOnStart.current = now;
+              stopwatchState.current = STOPWATCH_STATES.RUNNING;
             }}
           >
             Resume
           </button>
           <button
             onClick={() => {
-              lapTimestamp.current = [];
-              onStopTimestamp.current = 0;
-              setCurrentState(STOPWATCH_STATES.INITIAL);
+              laps.current = [];
+              lastElapsedMs.current = 0;
+              stopwatchState.current = STOPWATCH_STATES.INITIAL;
             }}
           >
             Reset
@@ -113,7 +113,7 @@ const App = () => {
       )}
       <div className="laps">
         <ul>
-          {lapTimestamp.current.map(
+          {laps.current.map(
             timestamp => <li>{timestamp}</li>
           )}
         </ul>
