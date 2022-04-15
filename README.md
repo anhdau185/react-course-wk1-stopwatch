@@ -7,11 +7,11 @@ Course: Principles and Design Patterns of React Programming - batch01 - Tháng 4
 Clone this repository into your local machine by navigating to your desired containing directory and running:\
 `git clone https://github.com/anhdau185/react-course-wk1-stopwatch.git`
 
-then `cd react-course-wk1-stopwatch`. Make sure you're using node version >= 14 and `yarn install` to install the packages.
+then `cd react-course-wk1-stopwatch`. Make sure you're using node v14 or later and run `yarn install` to install the packages.
 
 ## How to run app locally
 
-`yarn start` to run the app in the development mode.
+`yarn start` to run the app in development mode.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
@@ -19,8 +19,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 `yarn build` to build the production version of the app to the `build` folder.
 
-App is ready to be deployed!
+App is now ready to be deployed to your hosting platform!
 
-## Link to production app
+## Production app
 
-TBD.
+Check the app out at: https://react-course-wk1-stopwatch.netlify.app
