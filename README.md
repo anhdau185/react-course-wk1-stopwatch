@@ -24,3 +24,7 @@ App is now ready to be deployed to your hosting platform!
 ## Production app
 
 Check the app out at: <a href="https://react-course-wk1-stopwatch.netlify.app" target="_blank">https://react-course-wk1-stopwatch.netlify.app</a>
+
+## Demo
+
+https://user-images.githubusercontent.com/14053819/163565824-befe2dc9-6b03-4d40-b449-39bdfc05e451.mov
