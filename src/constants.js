@@ -1,6 +1,6 @@
 export const STOPWATCH_STATES = {
   INITIAL: 'initial',
-  RUNNING: 'running...',
+  RUNNING: 'running',
   STOPPED: 'stopped'
 };
 

@@ -37,7 +37,7 @@ const App = () => {
     <>
       {stopwatchState.current === STOPWATCH_STATES.INITIAL && (
         <Stopwatch
-          currentState={stopwatchState.current}
+          currentState={STOPWATCH_STATES.INITIAL}
           elapsedMs={0}
           actionButtons={[
             <button
@@ -53,7 +53,7 @@ const App = () => {
       )}
       {stopwatchState.current === STOPWATCH_STATES.RUNNING && (
         <Stopwatch
-          currentState={stopwatchState.current}
+          currentState={STOPWATCH_STATES.RUNNING}
           elapsedMs={elapsedMs}
           actionButtons={[
             <button
@@ -82,7 +82,7 @@ const App = () => {
       )}
       {stopwatchState.current === STOPWATCH_STATES.STOPPED && (
         <Stopwatch
-          currentState={stopwatchState.current}
+          currentState={STOPWATCH_STATES.STOPPED}
           elapsedMs={lastElapsedMs.current}
           actionButtons={[
             <button

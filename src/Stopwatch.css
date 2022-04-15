@@ -3,6 +3,22 @@
   padding: 1rem;
 }
 
+.stopwatch .current-state {
+  font-weight: 600;
+}
+
+.stopwatch .current-state.initial {
+  color: #8c14fc;
+}
+
+.stopwatch .current-state.running {
+  color: #02bfa1;
+}
+
+.stopwatch .current-state.stopped {
+  color: #d91e18;
+}
+
 .stopwatch .elapsed-time {
   display: block;
   padding: 0.5rem;
