@@ -109,7 +109,11 @@ const App = () => {
       <div className="lap-list">
         <h4>Laps</h4>
         <ul className="laps">
-          {laps.current.map(lap => <li key={lap}>{lap}</li>)}
+          {laps.current.map(lap => (
+            <li key={lap} style={{ marginBottom: '0.25rem' }}>
+              <code className="time-display">{lap}</code>
+            </li>
+          ))}
         </ul>
       </div>
     </>

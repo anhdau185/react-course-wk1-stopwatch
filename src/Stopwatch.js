@@ -9,7 +9,7 @@ const Stopwatch = ({ currentState, elapsedMs, actionButtons }) => (
     <div className={`current-state ${currentState}`}>
       {currentState}{currentState === STOPWATCH_STATES.RUNNING && '...'}
     </div>
-    <code className="elapsed-time">{convertTimestampToString(elapsedMs)}</code>
+    <code className="time-display">{convertTimestampToString(elapsedMs)}</code>
     {actionButtons}
   </div>
 );

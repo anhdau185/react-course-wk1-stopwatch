@@ -10,5 +10,5 @@ export const convertTimestampToString = milliseconds => {
   seconds %= 60;
   return `${[hh, mm, seconds]
     .map(number => padStartNumber(number))
-    .join(':')}:${padStartNumber(rMilliseconds, 3)}`; // only milliseconds require 3 digits, so here we are...
+    .join(':')}.${padStartNumber(rMilliseconds, 3)}`; // only milliseconds require 3 digits, so here we are...
 };
