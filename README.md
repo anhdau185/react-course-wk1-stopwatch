@@ -23,4 +23,4 @@ App is now ready to be deployed to your hosting platform!
 
 ## Production app
 
-Check the app out at: [https://react-course-wk1-stopwatch.netlify.app](https://react-course-wk1-stopwatch.netlify.app){:target="_blank"}
+Check the app out at: <a href="https://react-course-wk1-stopwatch.netlify.app" target="_blank">https://react-course-wk1-stopwatch.netlify.app</a>
