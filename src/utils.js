@@ -5,9 +5,9 @@ export const convertTimestampToString = milliseconds => {
   const rMilliseconds = milliseconds % 1000;
 
   const hh = ~~(seconds / 3600);
-  seconds -= hh;
+  seconds %= 3600;
   const mm = ~~(seconds / 60);
-  seconds -= mm;
+  seconds %= 60;
   return `${[hh, mm, seconds]
     .map(number => padStartNumber(number))
     .join(':')}:${padStartNumber(rMilliseconds, 3)}`; // only milliseconds require 3 digits, so here we are...
