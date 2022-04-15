@@ -1,29 +1,8 @@
 import {useEffect, useRef, useState} from 'react';
 
+import { STOPWATCH_STATES, MAX_RECENT_LAPS } from './constants';
+import { convertTimestampToString } from './utils';
 import './App.css';
-
-const STOPWATCH_STATES = {
-  INITIAL: 'initial',
-  RUNNING: 'running...',
-  STOPPED: 'stopped'
-};
-
-const MAX_RECENT_LAPS = 10;
-
-const padStartNumber = (number, digits = 2) => number.toString().padStart(digits, '0');
-
-const convertTimestampToString = milliseconds => {
-  let seconds = ~~(milliseconds / 1000);
-  const rMilliseconds = milliseconds % 1000;
-
-  const hh = ~~(seconds / 3600);
-  seconds -= hh;
-  const mm = ~~(seconds / 60);
-  seconds -= mm;
-  return `${[hh, mm, seconds]
-    .map(number => padStartNumber(number))
-    .join(':')}:${padStartNumber(rMilliseconds, 3)}`; // only milliseconds require 3 digits, so here we are...
-};
 
 const useNow = () => {
   const [now, setNow] = useState(Date.now());
